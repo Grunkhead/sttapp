@@ -1,1 +1,1 @@
-# sttapp
+# STT app
