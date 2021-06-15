@@ -45,40 +45,65 @@ http.createServer(function (req, res) {
         'leidschdagblad.nl',
         'zeelandnet.nl',
         'haarlemsdagblad.nl',
-        'ad.nl'
+        'ad.nl',
+        'volkskrant.nl'
     ]
 
     blockedValidators = [
-        'google',
-        'speld'
+        'nieuwspaal.nl'
     ]
 
-    blockedRegex           = (validator) => `(?:https|http):\/\/www.${validator}.[a-z]{2,3})`
-    calculatePercentage = (score)     => score / validators.length * 100
+    const puppeteer = require('puppeteer');
 
-    fetch(uri)
-        .then(res => res.text())
-        .then(text => {
-            results = [ ...text.matchAll(/(?:https|http):\/\/www.(([a-z-]*).[a-z]{2,3})\/(?:(?!&amp).)*/gm)]
-            
-            score = 0
-            for (i = 0; i < results.length; i++) {
+    (async () => {
+        const browser = await puppeteer.launch({ executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" });
+        const page = await browser.newPage();
+        await page.goto(uri);
 
-                wordCounter = 0
-                for (x = 0; x < words.length; x++) {
+        let results = await page.evaluate(() => {
 
-                    if (results[i][0].toLowerCase().includes(words[x].toLowerCase())) {
-                        wordCounter++
-                    }
-                }
+            let elements = document.querySelectorAll('div.g')
+            let arr = []
 
-                score += wordCounter / words.length * 100
+            elements.forEach((item) => {
+                arr.push({
+                    html: item.innerHTML,
+                    linkData: [ ...item.innerHTML.matchAll(/(?:https|http):\/\/(?:www.)?(([a-z-]*).[a-z]{2,3})\/(?:(?!\").)*/gm)][1],
+                    missingWords: Array.from(item.querySelectorAll('s')).map(e => e.innerText)
+                })
+                
+            })
+
+            return arr;
+        });
+
+        console.log(results);
+
+        score = 100
+
+        for (let i = 0; i < results.length; i++) {
+
+            const linkDataExists = results[i].linkData != undefined && results[i].linkData[1] != undefined
+
+            if (linkDataExists && blockedValidators.includes(results[i].linkData[1])) {
+                score = score - 50
             }
 
-            score = score / results.length
+            if (linkDataExists && !validators.includes(results[i].linkData[1])) {
+                score--
+            }
+    
+            score -= results[i].missingWords.length
+        }
 
-            console.log(`Achieved score: ${score}`)
-            console.log(`Max achievable score: 100`)
-        })
+        if (score < 0) {
+            score = 0
+        }
+    
+        console.log(`Achieved score: ${score}`)
+        console.log(`Max achievable score: 100`)
+
+        await browser.close();
+    })()
 
 }).listen(8080);
