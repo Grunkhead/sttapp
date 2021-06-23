@@ -69,7 +69,7 @@ http.createServer(function (req, res) {
 
         console.log(results);
 
-        // Exctract validt
+        // Extract total validators length, so we can add it up on include.
         score = 100 - validators.length
 
         checkList = {
