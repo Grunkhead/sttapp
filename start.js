@@ -5,20 +5,7 @@ const HTMLParser   = require('node-html-parser')
 
 
 http.createServer(function (req, res) {
-    // res.writeHead(200, {'Content-Type': 'text/plain'}); 
-
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.write(`<html>
-                    <body>
-                        <form>
-                            <label for="fname">Enter URI</label><br>
-                            <input type="text" name="uri" value=""><br>
-                            <input type="submit" value="Submit">
-                        </form> 
-                    </body>
-                </html>`
-                );
-    res.end();
+    res.setHeader('Content-Type', 'application/json');
 
     if (req.url.includes('uri=')) {
         uri = req.url.split('=')[1]
@@ -50,7 +37,8 @@ http.createServer(function (req, res) {
     ]
 
     blockedValidators = [
-        'nieuwspaal.nl'
+        'nieuwspaal.nl',
+        'speld.nl'
     ]
 
     const puppeteer = require('puppeteer');
@@ -66,8 +54,10 @@ http.createServer(function (req, res) {
             let arr = []
 
             elements.forEach((item) => {
+
                 arr.push({
                     html: item.innerHTML,
+                    title: item.querySelectorAll('h3')[0].innerHTML,
                     linkData: [ ...item.innerHTML.matchAll(/(?:https|http):\/\/(?:www.)?(([a-z-]*).[a-z]{2,3})\/(?:(?!\").)*/gm)][1],
                     missingWords: Array.from(item.querySelectorAll('s')).map(e => e.innerText)
                 })
@@ -79,21 +69,43 @@ http.createServer(function (req, res) {
 
         console.log(results);
 
-        score = 100
+        // Exctract validt
+        score = 100 - validators.length
+
+        checkList = {
+            
+            blockedValidators: [],
+            validators: []
+        }
 
         for (let i = 0; i < results.length; i++) {
 
             const linkDataExists = results[i].linkData != undefined && results[i].linkData[1] != undefined
 
             if (linkDataExists && blockedValidators.includes(results[i].linkData[1])) {
+
+                checkList.blockedValidators.push({
+                    name: results[i].linkData[1],
+                    title: results[i].title,
+                    missingWords: results[i].missingWords
+                })
+
                 score = score - 50
             }
 
-            if (linkDataExists && !validators.includes(results[i].linkData[1])) {
-                score--
+            if (linkDataExists && validators.includes(results[i].linkData[1])) {
+
+                checkList.validators.push({
+                    name: results[i].linkData[1],
+                    title: results[i].title,
+                    missingWords: results[i].missingWords
+                })
+
+                score++
             }
-    
+
             score -= results[i].missingWords.length
+
         }
 
         if (score < 0) {
@@ -104,6 +116,14 @@ http.createServer(function (req, res) {
         console.log(`Max achievable score: 100`)
 
         await browser.close();
+
+        jsonResult = {
+
+            fakenewsProbability: score,
+            validatorResults: checkList
+        }
+
+        res.end(JSON.stringify(jsonResult))
     })()
 
 }).listen(8080);
