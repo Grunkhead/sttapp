@@ -1,0 +1,374 @@
+:root {
+  --primary-light: #54918a;
+  --primary-dark: #0b655b;
+  --primary-darker: #08554b;
+  --secondary-light: #ff9b70;
+  --secondary-dark: #ff8f60;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: var(--primary-dark);
+  font-family: "Baloo 2";
+  font-weight: normal;
+  color: #fff;
+}
+
+/* Menu */
+nav {
+  position: fixed;
+  z-index: 1;
+  max-width: 420px;
+}
+nav > div {
+  width: 100%;
+  height: 100vh;
+}
+
+nav button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+nav button svg {
+  fill: var(--secondary-light);
+  width: 64px;
+  height: 64px;
+}
+
+nav ul {
+  list-style: none;
+  font-size: 22px;
+  padding: 0 0.75em;
+}
+
+nav ul li {
+  border: solid 2px var(--primary-dark);
+  border-radius: 1em;
+  margin-top: 0.45em;
+}
+nav ul li:first-of-type {
+  margin-top: 0;
+}
+nav ul li a {
+  display: block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+}
+/* TYPOGRAPHY */
+h1 {
+  font-weight: bold;
+  color: var(--secondary-dark);
+  font-size: 4em;
+}
+
+h1 small {
+  color: #fff;
+}
+
+h2 {
+  font-weight: lighter;
+  font-size: 1.75em;
+}
+
+h3 {
+  font-size: 1.55em;
+  font-weight: normal;
+}
+
+h5 {
+  font-size: 2.55em;
+  font-weight: bold;
+  color: #000;
+}
+
+p {
+  margin: 2em 0;
+}
+
+/* HEADER */
+header {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+  position: relative;
+  overflow: hidden;
+}
+
+header > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+#intro {
+  text-align: center;
+  max-width: 440px;
+}
+
+#checks {
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+}
+
+#checks > div {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1em 0;
+}
+
+#checks > div > div {
+  display: flex;
+  flex: 1 0 96px;
+  flex-direction: column;
+  align-items: center;
+}
+
+#checks > div > div > svg {
+  background-color: #fff;
+  border-radius: 50%;
+  fill: var(--secondary-dark);
+  width: 64px;
+  height: 64px;
+  padding: 1em;
+}
+
+#checks > div > div > h3 {
+  margin-top: 0.3em;
+  font-weight: lighter;
+}
+
+#form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 420px;
+}
+
+#form > span {
+  display: none;
+  background: rgba(255, 0, 0, 0.6);
+  text-align: center;
+  padding: 1.2em;
+  margin-bottom: 1.5em;
+}
+
+#form > input {
+  border: none;
+  height: 39px;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 0 2em;
+}
+
+#form > input::placeholder {
+  color: var(--primary-darker);
+  font-weight: bold;
+  text-align: center;
+}
+
+main button,
+#form > button {
+  margin: 0 auto;
+  margin-top: 1.5em;
+  height: 39px;
+  border: none;
+  border-radius: 22px;
+  background: var(--secondary-dark);
+  padding: 0 2em;
+  color: #fff;
+  font-weight: bolder;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.circle {
+  border: solid 10vw var(--primary-darker);
+  border-radius: 50%;
+  position: absolute;
+  z-index: -1;
+}
+
+#c1 {
+  border-width: 120px;
+  width: 700px;
+  height: 500px;
+  top: -50vh;
+  left: -60vw;
+  transform: rotate(60deg);
+}
+
+#c2 {
+  border-width: 90px;
+  width: 600px;
+  height: 450px;
+  bottom: -30vh;
+  right: -50vw;
+  transform: rotate(50deg);
+}
+
+/* MAIN & GAUGES */
+main {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1em;
+}
+main > .content {
+  display: flex;
+  flex-direction: column;
+}
+
+main .content > .column {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 2em 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.column p {
+  margin: 0;
+  color: #000;
+}
+
+.column p small {
+  color: var(--secondary-dark);
+  font-size: 16px;
+}
+
+.meter-intro {
+  width: 100%;
+  max-width: 275px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+}
+
+.actions button:nth-child(2) {
+  background: var(--primary-light);
+}
+
+.gauge {
+  position: relative;
+  background: #f1f1f1;
+  width: 290px;
+  height: 165px;
+  border-top-left-radius: 145px;
+  border-top-right-radius: 145px;
+  margin: 0 2em;
+}
+.label-1 {
+  position: absolute;
+  left: 20px;
+  padding-left: 0.3em;
+  padding-bottom: 0.3em;
+  color: #11665c;
+}
+.label-2 {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 0.3em;
+  color: #b24d22;
+}
+.label-3 {
+  position: absolute;
+  right: 20px;
+  padding-right: 0.3em;
+  padding-bottom: 0.3em;
+  color: #7b2c0a;
+}
+.gauge-body {
+  width: 250px;
+  height: 125px;
+  background: #f1f1f1;
+  border-top-left-radius: 125px;
+  border-top-right-radius: 125px;
+  position: relative;
+  top: 20px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.gauge-pointer-body {
+  width: 50px;
+  height: 50px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  background: #f1f1f1;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -25px;
+  margin: 0 auto;
+}
+.gauge-pointer {
+  content: "";
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 70px solid #f1f1f1;
+  position: absolute;
+  bottom: 0;
+  left: 115px;
+  transform: rotate(-75deg);
+  transform-origin: 50% 100%;
+  z-index: 1;
+}
+.gauge-1 {
+  width: 100%;
+  height: 100%;
+  background: #d94d13;
+  position: absolute;
+  transform: rotate(0deg);
+  transform-origin: 50% 100%;
+}
+.gauge-2 {
+  width: 100%;
+  height: 100%;
+  background: #ff814c;
+  position: absolute;
+  transform: rotate(-36deg);
+  transform-origin: 50% 100%;
+}
+.gauge-3 {
+  width: 100%;
+  height: 100%;
+  background: #ff9b70;
+  position: absolute;
+  transform: rotate(-72deg);
+  transform-origin: 50% 100%;
+}
+.gauge-4 {
+  width: 100%;
+  height: 100%;
+  background: #54918a;
+  position: absolute;
+  transform: rotate(-108deg);
+  transform-origin: 50% 100%;
+}
+.gauge-5 {
+  width: 100%;
+  height: 100%;
+  background: #88aeaa;
+  position: absolute;
+  transform: rotate(-144deg);
+  transform-origin: 50% 100%;
+}
