@@ -1,26 +1,14 @@
-// process.env.NTBA_FIX_319 = 1;
-var http           = require('http');
-const fetch        = require('node-fetch');
-const HTMLParser   = require('node-html-parser')
+module.exports = async (url) => {
 
-
-http.createServer(function (req, res) {
-    res.setHeader('Content-Type', 'application/json');
-
-    if (req.url.includes('uri=')) {
-        uri = req.url.split('=')[1]
-        words = uri.split('+')
-
-        words = words.map(w => w.replace(/[^\w\s!?]/g,''))
-
-        console.log(words);
-
-    } else {
-        return
+    if (!url.includes('uri=')) { 
+        return JSON.stringify({ error: 'Could not find uri GET param in the given URI.' })
     }
 
-    google = 'https://www.google.nl/search?q=' 
-    uri    =  encodeURI(google + uri)
+    // Get URI from get param.
+    uri = url.split('=')[1]
+
+    splitted = uri.split('/')
+    let title = splitted.reduce((a, b) => a.length > b.length ? a : b, '')
 
     validators = [
         'nu.nl',
@@ -43,15 +31,19 @@ http.createServer(function (req, res) {
 
     const puppeteer = require('puppeteer');
 
-    (async () => {
+    getJsonResult = async () => {
         const browser = await puppeteer.launch({ executablePath: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" });
-        const page = await browser.newPage();
+        
+        page = await browser.newPage()
+
+        google = 'https://www.google.nl/search?q=' 
+        uri    =  encodeURI(google + title)
+        
         await page.goto(uri);
+        results = await page.evaluate(() => {
 
-        let results = await page.evaluate(() => {
-
-            let elements = document.querySelectorAll('div.g')
-            let arr = []
+            elements = document.querySelectorAll('div.g')
+            arr = []
 
             elements.forEach((item) => {
 
@@ -64,7 +56,7 @@ http.createServer(function (req, res) {
                 
             })
 
-            return arr;
+            return arr
         });
 
         console.log(results);
@@ -123,7 +115,8 @@ http.createServer(function (req, res) {
             validatorResults: checkList
         }
 
-        res.end(JSON.stringify(jsonResult))
-    })()
+        return JSON.stringify(jsonResult)
+    }
 
-}).listen(8080);
+    return getJsonResult()
+}
