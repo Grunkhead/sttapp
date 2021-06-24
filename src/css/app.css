@@ -11,6 +11,10 @@
   margin: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: var(--primary-dark);
   font-family: "Baloo 2";
@@ -239,6 +243,22 @@ main .content > .column {
   margin: 2em 0;
   align-items: center;
   justify-content: center;
+}
+
+main .content > .column:nth-child(1) {
+  flex-direction: column;
+}
+
+.column h4 {
+  color: #000;
+  font-size: 3em;
+}
+
+.devider {
+  background-color: var(--secondary-dark);
+  height: 5px;
+  width: 139px;
+  border-radius: 12px;
 }
 
 .column p {
