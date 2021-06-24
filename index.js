@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 
-app.get('/evaluate', async (req, res) => {
+app.get('/evaluate*', async (req, res) => {
     try {
         res.json({success:true, message:"OK"})
     } catch (error) {

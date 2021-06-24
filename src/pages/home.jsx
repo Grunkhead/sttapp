@@ -5,11 +5,18 @@ function Home() {
     const inputError = useRef();
     const gaugePointers = useRef([]);
 
-    function submitHandler(e) {
+    async function submitHandler(e) {
         const val = inputField.current.value || "";
         if (val.match(/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/g)) {
             inputError.current.style.display = "none";
-            // fetch
+            try {
+                const res = await fetch(`/evaluate?uri=${val}`);
+                const data = await res.json();
+                console.log(data);
+            } catch (error) {
+                inputError.current.style.display = "block";
+                inputError.current.innerHTML = "Oeps! Er ging iets mis tijdens het analyseren. Probeer het opnieuw :)";
+            }
         } else {
             inputError.current.style.display = "block";
             inputError.current.innerHTML = "Dit is geen url waar wij iets mee kunnen.";
