@@ -59,8 +59,6 @@ module.exports = async (url) => {
             return arr
         });
 
-        console.log(results);
-
         // Extract total validators length, so we can add it up on include.
         score = 100 - validators.length
 
@@ -103,9 +101,6 @@ module.exports = async (url) => {
         if (score < 0) {
             score = 0
         }
-    
-        console.log(`Achieved score: ${score}`)
-        console.log(`Max achievable score: 100`)
 
         await browser.close();
 
