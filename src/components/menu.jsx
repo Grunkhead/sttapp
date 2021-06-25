@@ -2,15 +2,24 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const sidebar = {
+const sidebarContent = {
     open: {
         opacity: 1,
-        x: 0
+        x: 0,
     },
     closed: {
         opacity: 0,
         x: "-100%",
     }
+}
+
+const sidebar = {
+    open: {
+        background: "var(--primary-dark)",
+    },
+    closed: {
+        background: "none",
+    },
 }
 
 function Menu() {
@@ -21,7 +30,7 @@ function Menu() {
     }
 
     return (
-        <nav>
+        <motion.nav animate={isOpen ? "open" : "closed"} variants={sidebar}>
             <button onClick={toggle}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +45,7 @@ function Menu() {
                     } />
                 </svg>
             </button>
-            <motion.div animate={isOpen ? "open" : "closed"} variants={sidebar}>
+            <motion.div animate={isOpen ? "open" : "closed"} variants={sidebarContent}>
                 <ul>
                     <li>
                         <Link to="/">Home</Link>
@@ -46,7 +55,7 @@ function Menu() {
                     </li>
                 </ul>
             </motion.div>
-        </nav>
+        </motion.nav>
     );
 }
 
