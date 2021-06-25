@@ -70,7 +70,7 @@ function Home() {
                         <div className="meter-intro">
                             <h5>Grapje?</h5>
                             <p>
-                                <b>De link is beoordeeld als <small>Neutraal</small>.</b><br />Deze module is nog te onbetrouwbaar voor advies.<br /><small>Waarom is dit een grapje?</small>
+                                <b>De link is beoordeeld als <small>neutraal</small>.</b><br />Deze module is nog te onbetrouwbaar voor advies.<br /><small>Waarom is dit een grapje?</small>
                             </p>
                         </div>
                     </div>
@@ -79,7 +79,7 @@ function Home() {
                         <div className="meter-intro">
                             <h5>Gevaarlijk?</h5>
                             <p>
-                                <b>De link is beoordeeld als <small>Neutraal</small>.</b><br />Deze module is nog te onbetrouwbaar voor advies.<br /><small>Waarom is dit propaganda?</small>
+                                <b>De link is beoordeeld als <small>neutraal</small>.</b><br />Deze module is nog te onbetrouwbaar voor advies.<br /><small>Waarom is dit propaganda?</small>
                             </p>
                         </div>
                     </div>
