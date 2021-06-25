@@ -45,7 +45,7 @@ function Home() {
                     <Checks />
                     <div id="form">
                         <span id="error" ref={inputError}></span>
-                        <input type="text" name="url" placeholder="Plak de URL hier" ref={inputField} />
+                        <input type="text" name="url" placeholder="Plak de link hier" ref={inputField} />
                         <button onClick={submitHandler}>Analyseer</button>
                     </div>
                 </div>
@@ -61,7 +61,7 @@ function Home() {
                         <div className="meter-intro">
                             <h5>Nep of echt?</h5>
                             <p>
-                                <b>De URL is beoordeeld als <small>nep</small>.</b><br />De bron kwam namelijk niet bij ons als legitieme nieuwszender. <br /><small>lees meer over onze bron...</small>
+                                <b>De link is beoordeeld als <small>Nep</small>.</b><br />We hebben jouw opgegeven bron uit de link vergeleken met andere bronnen op het internet.<br /><small>Waarom is dit nep?</small>
                             </p>
                         </div>
                     </div>
@@ -70,7 +70,7 @@ function Home() {
                         <div className="meter-intro">
                             <h5>Grapje?</h5>
                             <p>
-                                <b>De URL is beoordeeld als <small>Neutraal</small>.</b><br />Deze module in nog in de bouw :)<br /><small>lees meer over onze lijst...</small>
+                                <b>De link is beoordeeld als <small>Neutraal</small>.</b><br />Deze module is nog te onbetrouwbaar voor advies.<br /><small>Waarom is dit een grapje?</small>
                             </p>
                         </div>
                     </div>
@@ -79,7 +79,7 @@ function Home() {
                         <div className="meter-intro">
                             <h5>Gevaarlijk?</h5>
                             <p>
-                                <b>De URL is beoordeeld als <small>Neutraal</small>.</b><br />Deze module in nog in de bouw :)<br /><small>lees meer over propaganda...</small>
+                                <b>De link is beoordeeld als <small>Neutraal</small>.</b><br />Deze module is nog te onbetrouwbaar voor advies.<br /><small>Waarom is dit propaganda?</small>
                             </p>
                         </div>
                     </div>
