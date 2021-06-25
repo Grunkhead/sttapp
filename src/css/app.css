@@ -52,9 +52,8 @@ nav ul {
 }
 
 nav ul li {
-  border: solid 2px var(--primary-dark);
-  border-radius: 1em;
   margin-top: 0.45em;
+  border-bottom: solid 2px var(--secondary-dark);
 }
 nav ul li:first-of-type {
   margin-top: 0;
@@ -63,6 +62,7 @@ nav ul li a {
   display: block;
   padding: 0.5em 1em;
   text-decoration: none;
+  color: #fff;
 }
 /* TYPOGRAPHY */
 h1 {
@@ -391,4 +391,21 @@ main .content > .column:nth-child(1) {
   position: absolute;
   transform: rotate(-144deg);
   transform-origin: 50% 100%;
+}
+
+#about > .content {
+  max-width: 1000px;
+}
+
+#about {
+  background: var(--primary-dark);
+}
+
+#about h4 {
+  color: #fff;
+  text-align: left;
+}
+
+#about p {
+  color: #fff;
 }
