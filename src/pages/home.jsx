@@ -61,7 +61,7 @@ function Home() {
                         <div className="meter-intro">
                             <h5>Nep of echt?</h5>
                             <p>
-                                <b>De link is beoordeeld als <small>Nep</small>.</b><br />We hebben jouw opgegeven bron uit de link vergeleken met andere bronnen op het internet.<br /><small>Waarom is dit nep?</small>
+                                <b>De link is beoordeeld als <small>{ result.fakenewsProbability > 60 ? "echt" : result.fakenewsProbability > 40 ? "Neutraal" : "Nep"}</small>.</b><br />We hebben jouw opgegeven bron uit de link vergeleken met andere bronnen op het internet.<br /><small>Waarom is dit { result.fakenewsProbability > 60 ? "echt" : result.fakenewsProbability > 40 ? "Neutraal" : "Nep"}?</small>
                             </p>
                         </div>
                     </div>
